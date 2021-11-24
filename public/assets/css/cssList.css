@@ -1,0 +1,53 @@
+div .crear-user{
+  padding-top: 10px;
+}
+div .crear-user a{
+  position: relative;
+  top: -20px;
+  background: #f3f0f0;
+  color: blue;
+  padding: 10px;
+  padding-right: 10px;
+  padding-left: 10px;
+  text-align: center;
+  font-weight: bold;  
+}
+table{
+  width:100%;
+  
+}
+table th{
+background: #f3f3f3 !important;
+}
+
+table th,
+table td{
+  background: #ffffff;
+  padding: 15px;
+  padding-right: 25px;
+  padding-left: 25px;
+  border-bottom: 1px solid #eee;
+  text-align: center;
+  border: 1px solid black;
+}
+
+table td{
+  background: #ffffff;
+}
+
+.buttons a{
+padding: 10px;
+}
+.buttons .btn-show{
+font-weight: 900;
+color: green;
+}
+.buttons .btn-edit{
+font-weight: bolder;
+color:orange;
+}
+.buttons .btn-delete{
+font-weight: bold;
+color: red;
+}
+

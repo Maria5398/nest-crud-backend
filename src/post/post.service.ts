@@ -26,6 +26,7 @@ export class PostService {
       async createOne(dto: CreatePostDto) {
         const post = this.postRepository.create(dto as any);
         return await this.postRepository.save(post);
+        
       }
 
       async editOne(id: number, dto: EditPostDto) {

@@ -1,0 +1,18 @@
+{{#> layout }}
+  {{#*inline "content"}}
+    <div class="row mb-2">
+       {{#> tableList }}
+        {{/tableList}}
+      <div class="col-sm-6">
+       
+        <h1 class="m-0"></h1>
+        
+        {{#> card title='Gráfico'}}
+          {{#*inline "content-block"}} 
+            {{ message }}
+          {{/inline}}
+        {{/card}}
+      </div>
+    </div>
+  {{/inline}}
+{{/layout}}

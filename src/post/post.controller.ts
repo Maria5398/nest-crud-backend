@@ -1,4 +1,4 @@
-import {Controller, Get, Param, Post, Put, Delete, Body, ParseIntPipe } from '@nestjs/common';
+import {Controller, Get, Param, Post, Put, Delete, Body, ParseIntPipe, Render, Request, Response } from '@nestjs/common';
 import { CreatePostDto, EditPostDto } from './dtos';
 import { PostService } from './post.service';
 
@@ -8,8 +8,15 @@ export class PostController {
 
     constructor(private readonly postService: PostService){}
 
-    @Get()
-    async getMany(){
+    @Get('prueba')
+    @Render('prueba')
+    async pruebaPage(@Request() req, @Response() res) {
+      return;
+    }
+
+    @Get('prueba/full')
+    @Render('list')
+    async getMany(@Request() req,){
         const data = await this.postService.getMany()
         return{ 
             message: 'Su peticion',
@@ -17,18 +24,19 @@ export class PostController {
         }
     }
 
-    @Get(':id')
+    @Get('prueba/:id')
     getOne(@Param('id', ParseIntPipe) id: number) {
         return this.postService.getOne(id);
     }
 
-    @Post()
+    @Post('prueba')
     createOne(
-        @Body() dto: CreatePostDto
+        @Body() dto: CreatePostDto,  @Response() res
     ){
-        return this.postService.createOne(dto);
+        const post = this.postService.createOne(dto);
+        if(post) return res.redirect('/post/prueba/full')
     }
-    @Put(':id')
+    @Put('prueba/:id')
     editOne(
         @Param('id') id: number,
         @Body() dto: EditPostDto
@@ -36,7 +44,7 @@ export class PostController {
         return this.postService.editOne(id, dto);
     }
 
-    @Delete(':id')
+    @Delete('prueba/:id')
     deleteOne(@Param('id') id: number){
         return this.postService.deleteOne(id);
     }

@@ -26,5 +26,5 @@ export class CreatePostDto{
     tags:string[];
 
     @IsBoolean()
-    status:boolean;
+    status:boolean = false;
 }
