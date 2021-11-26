@@ -35,19 +35,9 @@ table td{
   background: #ffffff;
 }
 
-.buttons a{
-padding: 10px;
+td button .fa-trash-alt{
+  color: rgb(255, 166, 0)
 }
-.buttons .btn-show{
-font-weight: 900;
-color: green;
+td button .fa-edit{
+  color: rgb(52, 170, 224);
 }
-.buttons .btn-edit{
-font-weight: bolder;
-color:orange;
-}
-.buttons .btn-delete{
-font-weight: bold;
-color: red;
-}
-

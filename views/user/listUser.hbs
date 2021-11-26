@@ -1,0 +1,51 @@
+{{#> layout }}
+  {{#*inline "content"}}
+    <div class="row mb-2">
+
+        {{> styles}}
+        <div class="crear-user">
+            <h2>Listado</h2>
+            <br>
+            <a href="/user/users/NewUser" class="btn-show">Crear User</a>
+        </div>
+
+        {{#if data }}
+            <table>
+                <tr>
+                    <th>id</th>
+                    <th>correo</th>
+                    <th>role</th>
+                   
+                    <th>Modificar</th>
+                    <th>Eliminar</th>
+                </tr>
+                {{#each data}}
+                <tr>
+                    <td>{{id}}</td>
+                    <td>{{correo}}</td>
+                    <td>{{role}}</td>      
+                    <td>
+                        <a href="/user/users/edit/{{id}}"> <!-- me manda ala vista para editar-->
+                            <button>
+                                    <i class= "fas fa-edit"></i>
+                            </button>
+                        </a>          
+                    </td>
+                    <td>
+                         <!-- aun no se como eliminar -->     
+                         <form method="post" action="/user/users/delete/{{id}}"> <!-- methodOverride no me funciona, o no se usarlo aca -->
+                            <button>
+                                <i class="fas fa-trash-alt"></i>
+                            </button> 
+                         </form>
+                    </td>    
+                </tr>
+                    
+                {{/each}}
+            </table>       
+        {{else}}
+        <p>no hay datos</p>
+        {{/if}}
+    </div>
+  {{/inline}}
+{{/layout}}

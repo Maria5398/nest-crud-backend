@@ -8,14 +8,13 @@ export class PostController {
 
     constructor(private readonly postService: PostService){}
 
-    @Get('prueba')
-    @Render('prueba')
+    @Get('prueba/newPost')
+    @Render('post/crearPost')
     async pruebaPage(@Request() req, @Response() res) {
       return;
     }
-
     @Get('prueba/full')
-    @Render('list')
+    @Render('post/listPost')
     async getMany(@Request() req,){
         const data = await this.postService.getMany()
         return{ 
@@ -24,7 +23,8 @@ export class PostController {
         }
     }
 
-    @Get('prueba/:id')
+    @Get('prueba/edit/:id')
+    @Render('post/editPost')
     getOne(@Param('id', ParseIntPipe) id: number) {
         return this.postService.getOne(id);
     }
@@ -36,7 +36,7 @@ export class PostController {
         const post = this.postService.createOne(dto);
         if(post) return res.redirect('/post/prueba/full')
     }
-    @Put('prueba/:id')
+    @Put('prueba/edit/:id')
     editOne(
         @Param('id') id: number,
         @Body() dto: EditPostDto
@@ -44,7 +44,7 @@ export class PostController {
         return this.postService.editOne(id, dto);
     }
 
-    @Delete('prueba/:id')
+    @Delete('prueba/delete/:id')
     deleteOne(@Param('id') id: number){
         return this.postService.deleteOne(id);
     }

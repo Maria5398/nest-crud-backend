@@ -1,4 +1,4 @@
-{{#> layout }}
+{{#> blank}}
   {{#*inline "content"}}
 
     <div class="wrapper-page">
@@ -30,6 +30,12 @@
                                 <input class="form-control" type="password" required="" placeholder="Password" name="password">
                             </div>
                         </div>
+                        
+                        <div class="form-group row">
+                            <div class="col-12">
+                                <input class="form-control" type="password" required="" placeholder="Password" name="password">
+                            </div>
+                        </div>
                   
 
                         <div class="form-group text-center row m-t-10">
@@ -38,6 +44,33 @@
                             </div>
                         </div>
 
+                        <div class="form-group row m-t-30 mb-0">
+                            <div class="col-12">
+                                <a href="/auth/login" class="text-muted"><i class="fa fa-lock m-r-5"></i> You are registered? Click here</a>
+                            </div>
+                        </div>
+
+                        <div class="form-group row m-t-30 mb-0">
+                            <div class="col-12 text-center">
+                                <h5 class="text-muted"><b>Sign up with</b></h5>
+                            </div>
+                        </div>
+
+                        <div class="form-group row mb-0 text-center">
+                            <div class="col-12">
+                                <button type="button" class="btn btn-facebook waves-effect font-14 waves-light m-t-20">
+                                    <i class="fa fa-facebook m-r-5"></i> Facebook
+                                </button>
+
+                                <button type="button" class="btn btn-twitter waves-effect font-14 waves-light m-t-20">
+                                    <i class="fa fa-twitter m-r-5"></i> Twitter
+                                </button>
+
+                                <button type="button" class="btn btn-googleplus waves-effect font-14 waves-light m-t-20">
+                                    <i class="fa fa-google-plus m-r-5"></i> Google+
+                                </button>
+                            </div>
+                        </div>
 
                     </form>
 
@@ -51,4 +84,4 @@
     </div>
     <!-- end wrapper page -->
   {{/inline}}
-{{/layout}}
+{{/blank}}
