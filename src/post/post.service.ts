@@ -11,7 +11,7 @@ export class PostService {
         private readonly  postRepository: Repository<Post>
     ){}
 
-    async getMany(): Promise<Post[]>{
+    async getMany(): Promise<Post[]>{ /*promesa */
         return await this.postRepository.find()     
     }
 

@@ -19,7 +19,7 @@
                                 <h6 class="text-muted text-uppercase m-b-0 m-t-0">prueba</h6>
                             </div>
                         </div>
-                        <form class="m-t-20" action="/post/prueba/edit/{{id}}" method="post">
+                        <form class="m-t-20" action="/post/{{id}}" method="POST">
 
                             <div class="form-group row">
                                 <div class="col-12">
@@ -57,7 +57,8 @@
 
                             <div class="form-group text-center row m-t-10">
                                 <div class="col-12">
-                                    <button class="btn btn-success btn-block waves-effect waves-light" type="submit">Modificar</button>
+                                    <input type="hidden" name="_method" value="put">
+                                    <input type="submit" value="Modificar">
                                 </div>
                             </div>
 

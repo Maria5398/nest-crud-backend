@@ -4,15 +4,7 @@ import { AppService } from './app.service';
 
 @Controller()
 export class AppController {
-  @Get('auth/login')
-  @Render('auth/login')
-  async loginPage(@Request() req,) {
-    return;
-  }
-  @Post('auth/login')
-  async login(@Request() req, @Response() res) {
-    return res.redirect('/home');
-  }
+  
   @Get()
   @Render('welcome')
   getHello() {

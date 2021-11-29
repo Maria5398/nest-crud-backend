@@ -5,8 +5,8 @@
         {{> styles}}
         <div class="crear-user">
             <h2>Listado</h2>
-            <br>
-            <a href="/post/prueba/newPost" class="btn-show">Crear Post</a>
+            <br/>
+            <a href="/post/newPost" class="btn-show">Crear Post</a>
         </div>
 
         {{#if data }}
@@ -34,7 +34,7 @@
                     <td>{{tags}}</td>
                     <td>{{status}}</td>         
                     <td>
-                        <a href="/post/prueba/edit/{{id}}"> <!-- me manda ala vista para editar-->
+                        <a href="/post/{{this.id}}"> <!-- me manda ala vista para editar-->
                             <button>
                                     <i class= "fas fa-edit"></i>
                             </button>
@@ -42,10 +42,9 @@
                     </td>
                     <td>
                          <!-- aun no se como eliminar -->     
-                         <form method="post" action="/post/prueba/delete/{{id}}"> <!-- methodOverride no me funciona, o no se usarlo aca -->
-                            <button>
-                                <i class="fas fa-trash-alt"></i>
-                            </button> 
+                         <form method="POST" action="/post/{{this.id}}">
+                            <input type="hidden" name="_method" value="delete">
+                            <input type="submit" value="Eliminar"> 
                          </form>
                     </td>    
                 </tr>
