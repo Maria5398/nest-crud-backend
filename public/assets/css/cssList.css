@@ -41,3 +41,11 @@ td button .fa-trash-alt{
 td button .fa-edit{
   color: rgb(52, 170, 224);
 }
+
+.no-hay-datos{
+  text-align: center;
+  margin-top:100px; 
+  font-size:x-large; 
+  font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; 
+  width: 100%;
+}

@@ -5,27 +5,30 @@
         {{> styles}}
         <div class="crear-user">
             <h2>Listado</h2>
-            <br>
-            <a href="/user/users/NewUser" class="btn-show">Crear User</a>
+            <br/>
+            <a href="/User/newuser" class="btn-show">Crear User</a>
         </div>
 
         {{#if data }}
             <table>
                 <tr>
-                    <th>id</th>
-                    <th>correo</th>
-                    <th>role</th>
-                   
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Email</th>
+                    <th>Role</th>
+                    <th>Activo desde</th>
                     <th>Modificar</th>
                     <th>Eliminar</th>
                 </tr>
                 {{#each data}}
                 <tr>
                     <td>{{id}}</td>
-                    <td>{{correo}}</td>
-                    <td>{{role}}</td>      
+                    <td>{{nombre}}</td>
+                    <td>{{email}}</td>
+                    <td>{{role}}</td>
+                    <td>{{createdAt}}</td>         
                     <td>
-                        <a href="/user/users/edit/{{id}}"> <!-- me manda ala vista para editar-->
+                        <a href="/usser/{{this.id}}"> <!-- me manda ala vista para editar-->
                             <button>
                                     <i class= "fas fa-edit"></i>
                             </button>
@@ -33,10 +36,9 @@
                     </td>
                     <td>
                          <!-- aun no se como eliminar -->     
-                         <form method="post" action="/user/users/delete/{{id}}"> <!-- methodOverride no me funciona, o no se usarlo aca -->
-                            <button>
-                                <i class="fas fa-trash-alt"></i>
-                            </button> 
+                         <form method="POST" action="/user/{{this.id}}">
+                            <input type="hidden" name="_method" value="delete">
+                            <input type="submit" value="Eliminar"> 
                          </form>
                     </td>    
                 </tr>
@@ -44,7 +46,9 @@
                 {{/each}}
             </table>       
         {{else}}
-        <p>no hay datos</p>
+        
+            <p class= "no-hay-datos">No hay datos</p>
+     
         {{/if}}
     </div>
   {{/inline}}

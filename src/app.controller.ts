@@ -1,11 +1,12 @@
 import { Controller, Request, Get, Post, Render, Response } from '@nestjs/common';
 import { AppService } from './app.service';
+import { ApiTags } from '@nestjs/swagger';
 
-
+@ApiTags('App Module')
 @Controller()
 export class AppController {
   
-  @Get()
+  @Get('/')
   @Render('welcome')
   getHello() {
     return { message: this.appService.getHello() };
