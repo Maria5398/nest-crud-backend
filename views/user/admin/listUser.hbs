@@ -6,14 +6,14 @@
         <div class="crear-user">
             <h2>Listado</h2>
             <br/>
-            <a href="/User/newuser" class="btn-show">Crear User</a>
+            <a href="/user/newUser" class="btn-show">Crear User</a>
         </div>
 
         {{#if data }}
             <table>
                 <tr>
                     <th>ID</th>
-                    <th>Nombre</th>
+                    <th>Nombre y Apellido</th>
                     <th>Email</th>
                     <th>Role</th>
                     <th>Activo desde</th>
@@ -23,12 +23,12 @@
                 {{#each data}}
                 <tr>
                     <td>{{id}}</td>
-                    <td>{{nombre}}</td>
+                    <td>{{name}} - {{lastName}}</td>
                     <td>{{email}}</td>
                     <td>{{role}}</td>
                     <td>{{createdAt}}</td>         
                     <td>
-                        <a href="/usser/{{this.id}}"> <!-- me manda ala vista para editar-->
+                        <a href="/user/{{this.id}}"> <!-- me manda ala vista para editar-->
                             <button>
                                     <i class= "fas fa-edit"></i>
                             </button>

@@ -15,7 +15,7 @@ export class PostController {
       return;
     }
     @Get('full') /* mosstrar todos los post ssubidos a  la db*/
-    @Render('post/listPost')
+    @Render('post/admin/listPost')
     async getMany(@Request() req,){
         const data = await this.postService.getMany()
         return{ 
@@ -24,7 +24,7 @@ export class PostController {
     }
 
     @Get(':id') /* mosstrar formulario de editar */
-    @Render('post/editPost')
+    @Render('post/admin/editPost')
     getVerOne(@Param('id', ParseIntPipe) id: number) {
         return this.postService.getOne(id);
     }
@@ -37,12 +37,13 @@ export class PostController {
         if(post) return res.redirect('/post/full')
     }
     @Put(':id') /*enviar datos modificados del post deseado */
-    @Render('post/editPost')
-    editOne(
+    async editOne(
         @Param('id') id: number,
-        @Body() dto: EditPostDto
+        @Body() dto: EditPostDto,
+        @Response() res
     ){
-        return this.postService.editOne(id, dto);
+        const data = await this.postService.editOne(id, dto);
+        if(data) return res.redirect('/post/full')
     }
 
     @Delete(':id') /*eliminar post especificado */

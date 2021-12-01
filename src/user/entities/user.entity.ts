@@ -10,7 +10,7 @@ export class User {
     name:string;
 
     @Column({ type: 'varchar', length: 255 })
-    LastName:string;
+    lastName:string;
 
     @Column({ type: 'varchar', length: 255, nullable: false })
     email:string;
