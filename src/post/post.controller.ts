@@ -19,7 +19,6 @@ export class PostController {
     async getMany(@Request() req,){
         const data = await this.postService.getMany()
         return{ 
-            message: 'Su peticion',
             data
         }
     }

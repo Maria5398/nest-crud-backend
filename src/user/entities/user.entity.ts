@@ -1,7 +1,5 @@
 import { BeforeInsert, BeforeUpdate, Column, CreateDateColumn, Entity, PrimaryGeneratedColumn } from 'typeorm';
-//import { Post } from "src/post/entities";
 import { hash } from 'bcrypt';
-
 
 @Entity('users')
 export class User {
@@ -25,7 +23,8 @@ export class User {
 
     @CreateDateColumn({ type: 'timestamp' })
     createdAt: Date;
-    @BeforeInsert()
+
+    @BeforeInsert() /*antes de insertar o modificar usar hash */
     @BeforeUpdate()
     async hashPassword(){
         if(!this.password){
