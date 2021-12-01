@@ -22,24 +22,32 @@
                 </tr>
                 {{#each data}}
                 <tr>
-                    <td>{{id}}</td>
+                    <td><a href="/user/ver/{{id}}"> {{id}} </a></td>
                     <td>{{name}} - {{lastName}}</td>
                     <td>{{email}}</td>
-                    <td>{{role}}</td>
+                    <td>
+                        {{#if status}}
+                            User
+                        {{else}}
+                            Admin
+                        {{/if}}
+                    </td>
                     <td>{{createdAt}}</td>         
                     <td>
-                        <a href="/user/{{this.id}}"> <!-- me manda ala vista para editar-->
+                        <a href="/user/{{id}}"> <!-- me manda a la vista para editar-->
                             <button>
                                     <i class= "fas fa-edit"></i>
                             </button>
                         </a>          
                     </td>
                     <td>
-                         <!-- aun no se como eliminar -->     
-                         <form method="POST" action="/user/{{this.id}}">
-                            <input type="hidden" name="_method" value="delete">
-                            <input type="submit" value="Eliminar"> 
-                         </form>
+                        <form action="/user/{{id}}" method="Post"> <!-- debe ser para eliminar -->
+                             <input type="hidden" name="_method" value="Delete" />
+
+                            <button>
+                                    <i class="fas fa-trash-alt"></i>
+                            </button>
+                        </form>    
                     </td>    
                 </tr>
                     

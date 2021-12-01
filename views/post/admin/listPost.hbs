@@ -34,18 +34,20 @@
                     <td>{{tags}}</td>
                     <td>{{status}}</td>         
                     <td>
-                        <a href="/post/{{this.id}}"> <!-- me manda ala vista para editar-->
+                        <a href="/post/{{id}}"> <!-- me manda ala vista para editar-->
                             <button>
                                     <i class= "fas fa-edit"></i>
                             </button>
                         </a>          
                     </td>
                     <td>
-                         <!-- aun no se como eliminar -->     
-                         <form method="POST" action="/post/{{this.id}}">
-                            <input type="hidden" name="_method" value="delete">
-                            <input type="submit" value="Eliminar"> 
-                         </form>
+                        <form action="/post/{{id}}">
+                             <input type="hidden" name="_method" value="Delete" />
+
+                            <button>
+                                    <i class="fas fa-trash-alt"></i>
+                            </button>
+                        </form>
                     </td>    
                 </tr>
                     

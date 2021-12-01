@@ -40,10 +40,10 @@ export class PostController {
     async editOne(
         @Param('id') id: number,
         @Body() dto: EditPostDto,
-        @Response() res
+        //@Response() res
     ){
         const data = await this.postService.editOne(id, dto);
-        if(data) return res.redirect('/post/full')
+        return { data }
     }
 
     @Delete(':id') /*eliminar post especificado */

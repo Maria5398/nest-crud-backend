@@ -40,12 +40,16 @@ export class UserController {
        }
     }
     
-    @Get(':id') /** mostrar el desseado dependiendo del rol puede ver los datos de cada user o solo el propio */
-    async getOne(
-        @Param('id') id: number,
-    ){
-        const data = await this.userService.getOne(id);
-        return { data }
+    @Get('ver/:id') /* mosstrar formulario de editar */
+    @Render('user/admin/verUser')
+    getVerOne(@Param('id', ParseIntPipe) id: number) {
+        return this.userService.getOne(id);
+    }
+
+    @Get(':id') /* mosstrar formulario de editar */
+    @Render('user/admin/editUser')
+    getOne(@Param('id', ParseIntPipe) id: number) {
+        return this.userService.getOne(id);
     }
 
     @Post('/register') /*enviar infor para crear, noo tiene validacciones */
@@ -64,18 +68,13 @@ export class UserController {
         if(data) return res.redirect('/user/full')
     }
 
-    @Get(':id') /* mosstrar formulario de editar */
-    @Render('user/admin/editUser')
-    getVerOne(@Param('id', ParseIntPipe) id: number) {
-        return this.userService.getOne(id);
-    }
-
     @Put(':id') /** dependiendo de la conddicion de role puede modificar los dastos de cualquier user o solo el propio aun no validado*/
-    editOne(
+    async editOne(
         @Param('id') id: number,
         @Body() dto: EditUserDto
     ){
-        return this.userService.editOne(id, dto);
+        const data = this.userService.editOne(id, dto);
+        return { data }
     
     }
 
