@@ -11,12 +11,12 @@ export class PostController {
 
     @Get('newPost') /* mosstrar formulario de crear */
     @Render('post/crearPost')
-    async postPage(@Request() req, @Response() res) {
+    async postPage() {
       return;
     }
     @Get('full') /* mosstrar todos los post ssubidos a  la db*/
     @Render('post/admin/listPost')
-    async getMany(@Request() req,){
+    async getMany(){
         const data = await this.postService.getMany()
         return{ 
             data
@@ -31,7 +31,7 @@ export class PostController {
 
     @Post() /* enviar datos de post a la db */
     createOne(
-        @Body() dto: CreatePostDto,  @Response() res
+        @Body() dto: CreatePostDto, @Request() req, @Response() res
     ){
         const post = this.postService.createOne(dto);
         if(post) return res.redirect('/post/full')
@@ -40,7 +40,7 @@ export class PostController {
     async editOne(
         @Param('id') id: number,
         @Body() dto: EditPostDto,
-        //@Response() res
+        
     ){
         const data = await this.postService.editOne(id, dto);
         return { data }
