@@ -1,4 +1,4 @@
-import { Controller, Request, Get, Post, Render, Response, Param, Body, Put, Delete, ParseIntPipe } from '@nestjs/common';
+import { Controller, Get, Post, Render, Response, Param, Body, Put, Delete, ParseIntPipe } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { UserService } from './user.service';
 import { CreateUserDto, EditUserDto } from './dtos';
@@ -47,7 +47,7 @@ export class UserController {
         @Body() dto: CreateUserDto, @Response() res
     ){
         const data = await this.userService.createOne(dto);
-        if(data) return res.redirect('/user/login')
+        if(data) return res.redirect('/auth/login')
     }
     
     @Post('newUser') /*enviar infor para crear, noo tiene validacciones para admin*/

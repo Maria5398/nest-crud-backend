@@ -1,4 +1,16 @@
-import {Controller, Get, Param, Post, Put, Delete, Body, ParseIntPipe, Render, Request, Response } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Param,
+  Post,
+  Put,
+  Delete,
+  Body,
+  ParseIntPipe,
+  Render,
+  Request,
+  Response,
+} from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { CreatePostDto, EditPostDto } from './dtos';
 import { PostService } from './post.service';
@@ -6,45 +18,43 @@ import { PostService } from './post.service';
 @ApiTags('Post')
 @Controller('post')
 export class PostController {
+  constructor(private readonly postService: PostService) {}
 
-    constructor(private readonly postService: PostService){}
+  @Get('newPost') /* mosstrar formulario de crear */
+  @Render('post/crearPost')
+  async postPage() {
+    return;
+  }
+  @Get('full') /* mosstrar todos los post ssubidos a  la db*/
+  @Render('post/admin/listPost')
+  async getMany() {
+    const data = await this.postService.getMany();
+    return {
+      data,
+    };
+  }
 
-    @Get('newPost') /* mosstrar formulario de crear */
-    @Render('post/crearPost')
-    async postPage() {
-      return;
-    }
-    @Get('full') /* mosstrar todos los post ssubidos a  la db*/
-    @Render('post/admin/listPost')
-    async getMany(){
-        const data = await this.postService.getMany()
-        return{ 
-            data
-        }
-    }
+  @Get(':id') /* mosstrar formulario de editar */
+  @Render('post/admin/editPost')
+  getVerOne(@Param('id', ParseIntPipe) id: number) {
+    return this.postService.getOne(id);
+  }
 
-    @Get(':id') /* mosstrar formulario de editar */
-    @Render('post/admin/editPost')
-    getVerOne(@Param('id', ParseIntPipe) id: number) {
-        return this.postService.getOne(id);
-    }
-
-    @Post() /* enviar datos de post a la db */
-    createOne(
-        @Body() dto: CreatePostDto, @Request() req, @Response() res
-    ){
-        const post = this.postService.createOne(dto);
-        if(post) return res.redirect('/post/full')
-    }
-    @Put(':id') /*enviar datos modificados del post deseado */
-    async editOne(
-        @Param('id') id: number,
-        @Body() dto: EditPostDto,
-        
-    ){
-        const data = await this.postService.editOne(id, dto);
-        return { data }
-    }
+  @Post() /* enviar datos de post a la db */ createOne(
+    @Body() dto: CreatePostDto,
+    @Request() req,
+    @Response() res,
+  ) {
+    const post = this.postService.createOne(dto);
+    if (post) return res.redirect('/post/full');
+  }
+  @Put(':id') /*enviar datos modificados del post deseado */ async editOne(
+    @Param('id') id: number,
+    @Body() dto: EditPostDto,
+  ) {
+    const data = await this.postService.editOne(id, dto);
+    return { data };
+  }
 
     @Delete(':id') /*eliminar post especificado */
     deleteOne(@Param('id') id: number){
