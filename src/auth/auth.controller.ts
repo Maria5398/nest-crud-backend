@@ -3,14 +3,14 @@ import {
   Get,
   Post,
   Res,
-  Req,
   Render,
   UseGuards,
 } from '@nestjs/common';
 import { User } from 'src/common/helpers/decorators/user.decorator';
 import { AuthService } from './auth.service';
-import { LocalAuthGuard } from './guards/local-auth.guard';
+import { LocalAuthGuard, JwtAuthGuard } from './guards';
 import { User as UserEntity } from '../user/entities/user.entity';
+import { AuthGuard } from '@nestjs/passport';
 
 @Controller('auth')
 export class AuthController {
@@ -24,10 +24,11 @@ export class AuthController {
 
   @UseGuards(LocalAuthGuard)
   @Post('login') /*enviar infor para comparar con datos de db */
-  login(@User() user: UserEntity, @Res() res): any {
-    if (user) return res.redirect('/auth/profile');
+  login(@User() user: UserEntity, @Res() res: any) {
+    const data = this.authService.login(user);
+    if (data) return res.redirect('/auth/profile');
   }
-
+  @UseGuards(JwtAuthGuard)
   @Get('profile')
   @Render('user/profile')
   async profilePage() {
