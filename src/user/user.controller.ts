@@ -9,26 +9,16 @@ export class UserController {
 
     constructor(private readonly userService: UserService){}
     
-    @Get('/register') /* formulario de registro */
+    @Get('register') /* formulario de registro */
     @Render('user/register')
     async registerPage() {
         return;
     }
 
-    @Get('/newuser') /* formulario de registro para admin no validado */
+    @Get('newuser') /* formulario de registro para admin no validado */
     @Render('user/admin/crearUser')
     async newUserPage() {
         return;
-    }
-
-    @Get('/login') /*formulario de login */
-    @Render('user/login')
-    async loginPage() {
-        return;
-    }
-    @Post('/login') /*enviar infor para comparar con datos de db aun no validado */
-    async login(@Request() req, @Response() res) {
-        return res.redirect('/user/full');
     }
 
     @Get('full') /*mostrar todos los usuarios registrados la db para admin no validado*/
@@ -52,7 +42,7 @@ export class UserController {
         return this.userService.getOne(id);
     }
 
-    @Post('/register') /*enviar infor para crear, noo tiene validacciones */
+    @Post('register') /*enviar infor para crear, noo tiene validacciones */
     async createOne(
         @Body() dto: CreateUserDto, @Response() res
     ){
@@ -60,7 +50,7 @@ export class UserController {
         if(data) return res.redirect('/user/login')
     }
     
-    @Post('/newUser') /*enviar infor para crear, noo tiene validacciones para admin*/
+    @Post('newUser') /*enviar infor para crear, noo tiene validacciones para admin*/
     async createnewOne(
         @Body() dto: CreateUserDto, @Response() res
     ){
