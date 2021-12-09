@@ -3,8 +3,6 @@ import {
   Get,
   Param,
   Post,
-  Put,
-  Delete,
   Body,
   ParseIntPipe,
   Render,
@@ -36,8 +34,15 @@ export class PostController {
 
   @Get(':id') /* mosstrar formulario de editar */
   @Render('post/admin/editPost')
-  getVerOne(@Param('id', ParseIntPipe) id: number) {
+  getEditOne(@Param('id', ParseIntPipe) id: number) {
     return this.postService.getOne(id);
+  }
+
+  
+  @Get('ver/:id') /* vista para ver todos lo datos*/
+  @Render('post/admin/verPost')
+  getVerOne(@Param('id', ParseIntPipe) id: number) {
+      return this.postService.getOne(id);
   }
 
   @Post() /* enviar datos de post a la db */ createOne(
@@ -48,16 +53,22 @@ export class PostController {
     const post = this.postService.createOne(dto);
     if (post) return res.redirect('/post/full');
   }
-  @Put(':id') /*enviar datos modificados del post deseado */ async editOne(
+  @Post('editar/:id') /*enviar datos modificados del post deseado */ 
+  async editOne(
     @Param('id') id: number,
     @Body() dto: EditPostDto,
+    @Response() res
   ) {
     const data = await this.postService.editOne(id, dto);
-    return { data };
+    if(data) return res.redirect('/post/full')
   }
 
-    @Delete(':id') /*eliminar post especificado */
-    deleteOne(@Param('id') id: number){
-        return this.postService.deleteOne(id);
+    @Post('delete/:id') /*eliminar post especificado */
+    async deleteOne(
+      @Param('id') id: number,
+      @Response() res
+      ){
+        const data = await this.postService.deleteOne(id);
+        if(data) return res.redirect('/post/full')
     }
 }

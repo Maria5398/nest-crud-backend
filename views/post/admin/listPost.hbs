@@ -26,7 +26,7 @@
                 </tr>
                 {{#each data}}
                 <tr>
-                    <td>{{id}}</td>
+                    <td><a href="/post/ver/{{id}}"> {{id}} </a></td>
                     <td>{{slug}}</td>
                     <td>{{title}}</td>
                     <td>{{excerpt}}</td>
@@ -43,9 +43,7 @@
                         </a>          
                     </td>
                     <td>
-                        <form action="/post/{{this.id}}" method="Delete">
-                             <input type="hidden" name="_method" value="Delete" />
-
+                        <form action="/post/delete/{{this.id}}" method="Post">
                             <button>
                                     <i class="fas fa-trash-alt"></i>
                             </button>

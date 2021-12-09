@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Render, Response, Param, Body, Put, Delete, ParseIntPipe } from '@nestjs/common';
+import { Controller, Get, Post, Render, Response, Param, Body, ParseIntPipe } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { UserService } from './user.service';
 import { CreateUserDto, EditUserDto } from './dtos';
@@ -30,7 +30,7 @@ export class UserController {
        }
     }
     
-    @Get('ver/:id') /* mosstrar formulario de editar */
+    @Get('ver/:id') /* vista para ver todos lo datos*/
     @Render('user/admin/verUser')
     getVerOne(@Param('id', ParseIntPipe) id: number) {
         return this.userService.getOne(id);
@@ -58,22 +58,22 @@ export class UserController {
         if(data) return res.redirect('/user/full')
     }
 
-    @Put(':id') /** dependiendo de la conddicion de role puede modificar los dastos de cualquier user o solo el propio aun no validado*/
+    @Post('editar/:id') /** dependiendo de la conddicion de role puede modificar los dastos de cualquier user o solo el propio aun no validado*/
     async editOne(
         @Param('id') id: number,
-        @Body() dto: EditUserDto
+        @Body() dto: EditUserDto,
+        @Response() res
     ){
-        const data = this.userService.editOne(id, dto);
-        return { data }
+        const data = await this.userService.editOne(id, dto);
+        if(data) return res.redirect('/user/full')
     
     }
 
-    @Delete(':id') /** eliminar una cuenta es solo propio del admin aun no validado */
+    @Post('delete/:id') /** eliminar una cuenta es solo propio del admin aun no validado */
     async deleteOne(
-        @Param('id') id: number,
+        @Param('id') id: number,@Response() res
     ){
         const data = await this.userService.deleteOne(id)
-        return { message: 'usuario eliminado', data }
+        if(data) return res.redirect('/user/full')
     }
-
 }
