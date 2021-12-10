@@ -5,16 +5,11 @@ import { join } from 'path';
 import * as hbs from 'hbs';
 import { initSwagger } from './app.swagger';
 import { Logger, ValidationPipe } from '@nestjs/common';
-import { ConfigService } from '@nestjs/config';
-import { JWT_TOKEN } from './config/constants';
+
 
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
   const logger = new Logger();
-  const config = app.get(ConfigService);
-
-  const secret = config.get<string>(JWT_TOKEN);
-  logger.log(secret);
 
   initSwagger(app);
 

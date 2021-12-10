@@ -15,15 +15,22 @@ export class AuthController {
 
   @UseGuards(LocalAuthGuard)
   @Post('login') /*enviar infor para comparar con datos de db */
-  login(@User() user: UserEntity, @Res() res: any) {
-    const data = this.authService.login(user);
+  async login(@User() user: UserEntity, @Res() res) {
+    const data = await this.authService.login(user);
     if (data) return res.redirect('/auth/profile');
   }
 
   @UseGuards(JwtAuthGuard)
   @Get('profile')
   @Render('user/profile')
-  async profilePage() {
+  profilePage() {
     return;
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Get('refresh')
+  refreshToken(@User() user: UserEntity, @Res() res) {
+    const data = this.authService.login(user);
+    if (data) return res.redirect('/auth/profile');
   }
 }
