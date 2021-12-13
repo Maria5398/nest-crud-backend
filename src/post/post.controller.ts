@@ -10,6 +10,7 @@ import {
   Response,
 } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
+import { Auth } from 'src/common/decorators';
 import { CreatePostDto, EditPostDto } from './dtos';
 import { PostService } from './post.service';
 
@@ -17,7 +18,7 @@ import { PostService } from './post.service';
 @Controller('post')
 export class PostController {
   constructor(private readonly postService: PostService) {}
-
+  @Auth()
   @Get('newPost') /* mosstrar formulario de crear */
   @Render('post/crearPost')
   async postPage() {
@@ -31,44 +32,40 @@ export class PostController {
       data,
     };
   }
-
+  @Auth()
   @Get(':id') /* mosstrar formulario de editar */
   @Render('post/admin/editPost')
   getEditOne(@Param('id', ParseIntPipe) id: number) {
     return this.postService.getOne(id);
   }
 
-  
+  @Auth()
   @Get('ver/:id') /* vista para ver todos lo datos*/
   @Render('post/admin/verPost')
   getVerOne(@Param('id', ParseIntPipe) id: number) {
-      return this.postService.getOne(id);
+    return this.postService.getOne(id);
   }
-
-  @Post() /* enviar datos de post a la db */ createOne(
-    @Body() dto: CreatePostDto,
-    @Request() req,
-    @Response() res,
-  ) {
+  @Auth()
+  @Post() /* enviar datos de post a la db */
+  createOne(@Body() dto: CreatePostDto, @Request() req, @Response() res) {
     const post = this.postService.createOne(dto);
     if (post) return res.redirect('/post/full');
   }
-  @Post('editar/:id') /*enviar datos modificados del post deseado */ 
+  @Auth()
+  @Post('editar/:id') /*enviar datos modificados del post deseado */
   async editOne(
     @Param('id') id: number,
     @Body() dto: EditPostDto,
-    @Response() res
+    @Response() res,
   ) {
     const data = await this.postService.editOne(id, dto);
-    if(data) return res.redirect('/post/full')
+    if (data) return res.redirect('/post/full');
   }
 
-    @Post('delete/:id') /*eliminar post especificado */
-    async deleteOne(
-      @Param('id') id: number,
-      @Response() res
-      ){
-        const data = await this.postService.deleteOne(id);
-        if(data) return res.redirect('/post/full')
-    }
+  @Auth()
+  @Post('delete/:id') /*eliminar post especificado */
+  async deleteOne(@Param('id') id: number, @Response() res) {
+    const data = await this.postService.deleteOne(id);
+    if (data) return res.redirect('/post/full');
+  }
 }

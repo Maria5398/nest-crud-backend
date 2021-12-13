@@ -3,6 +3,9 @@ import { User } from 'src/common/decorators/user.decorator';
 import { AuthService } from './auth.service';
 import { LocalAuthGuard, JwtAuthGuard } from './guards';
 import { User as UserEntity } from '../user/entities/user.entity';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
+import { Auth } from 'src/common/decorators';
+@ApiTags('Auth')
 @Controller('auth')
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
@@ -19,15 +22,14 @@ export class AuthController {
     const data = await this.authService.login(user);
     if (data) return res.redirect('/auth/profile');
   }
-
-  @UseGuards(JwtAuthGuard)
+  @Auth()
   @Get('profile')
   @Render('user/profile')
-  profilePage() {
-    return;
+  profilePage(@User() user: UserEntity) {
+    return user;
   }
 
-  @UseGuards(JwtAuthGuard)
+  @Auth()
   @Get('refresh')
   refreshToken(@User() user: UserEntity, @Res() res) {
     const data = this.authService.login(user);
