@@ -1,10 +1,19 @@
-import { Controller, Post, Get, UseGuards, Render, Res } from '@nestjs/common';
+import {
+  Controller,
+  Post,
+  Get,
+  UseGuards,
+  Render,
+  Res,
+  Body,
+} from '@nestjs/common';
 import { User } from 'src/common/decorators/user.decorator';
 import { AuthService } from './auth.service';
-import { LocalAuthGuard, JwtAuthGuard } from './guards';
+import { LocalAuthGuard } from './guards';
 import { User as UserEntity } from '../user/entities/user.entity';
-import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
+import { ApiTags } from '@nestjs/swagger';
 import { Auth } from 'src/common/decorators';
+import { LoginDto } from './dtos/login.dto';
 @ApiTags('Auth')
 @Controller('auth')
 export class AuthController {
@@ -18,7 +27,11 @@ export class AuthController {
 
   @UseGuards(LocalAuthGuard)
   @Post('login') /*enviar infor para comparar con datos de db */
-  async login(@User() user: UserEntity, @Res() res) {
+  async login(
+    @Body() loginDto: LoginDto,
+    @User() user: UserEntity,
+    @Res() res,
+  ) {
     const data = await this.authService.login(user);
     if (data) return res.redirect('/auth/profile');
   }
@@ -28,8 +41,6 @@ export class AuthController {
   profilePage(@User() user: UserEntity) {
     return user;
   }
-
-  @Auth()
   @Get('refresh')
   refreshToken(@User() user: UserEntity, @Res() res) {
     const data = this.authService.login(user);

@@ -26,12 +26,9 @@
                     <td>{{name}} - {{lastName}}</td>
                     <td>{{email}}</td>
                     <td>
-                        {{#if status}}
-                            User
-                        {{else}}
-                            Admin
-                        {{/if}}
+                        {{status}}
                     </td>
+                    <td>{{roles}}</td>  
                     <td>{{createdAt}}</td>         
                     <td>
                         <a href="/user/{{id}}"> <!-- me manda a la vista para editar-->

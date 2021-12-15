@@ -18,13 +18,8 @@ import { PostService } from './post.service';
 @Controller('post')
 export class PostController {
   constructor(private readonly postService: PostService) {}
-  @Auth()
-  @Get('newPost') /* mosstrar formulario de crear */
-  @Render('post/crearPost')
-  async postPage() {
-    return;
-  }
-  @Get('full') /* mosstrar todos los post ssubidos a  la db*/
+  //users
+  @Get('full') /* mostrar todos los post subidos a  la db*/
   @Render('post/admin/listPost')
   async getMany() {
     const data = await this.postService.getMany();
@@ -32,18 +27,23 @@ export class PostController {
       data,
     };
   }
-  @Auth()
-  @Get(':id') /* mosstrar formulario de editar */
-  @Render('post/admin/editPost')
-  getEditOne(@Param('id', ParseIntPipe) id: number) {
-    return this.postService.getOne(id);
-  }
-
-  @Auth()
   @Get('ver/:id') /* vista para ver todos lo datos*/
   @Render('post/admin/verPost')
   getVerOne(@Param('id', ParseIntPipe) id: number) {
     return this.postService.getOne(id);
+  }
+  //Admin
+  @Auth()
+  @Get(':id') /* mostrar formulario de editar */
+  @Render('post/admin/editPost')
+  getEditOne(@Param('id', ParseIntPipe) id: number) {
+    return this.postService.getOne(id);
+  }
+  @Auth()
+  @Get('newPost') /* mostrar formulario de crear */
+  @Render('post/crearPost')
+  async postPage() {
+    return;
   }
   @Auth()
   @Post() /* enviar datos de post a la db */
