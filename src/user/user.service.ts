@@ -21,11 +21,8 @@ export class UserService {
     return await this.userRepository.find();
   }
   async getOne(id: number, userEntity?: User) {
-    const user = await this.userRepository
-      .findOne(id)
-      .then((u) =>
-        !userEntity ? u : !!u && userEntity.id === u.id ? u : null,
-      );
+    const user = await this.userRepository.findOne(id)
+      .then(u => !userEntity ? u : !!u && userEntity.id === u.id ? u : null)
 
     if (!user) throw new NotFoundException('usuario inexistente');
 

@@ -1,18 +1,13 @@
 import { RolesBuilder } from 'nest-access-control';
-
-
 export enum AppRoles {
   AUTHOR = 'AUTHOR',
   ADMIN = 'ADMIN',
 }
-
 export enum AppResource {
   USER = 'USER',
   POST = 'POST',
 }
-
 export const roles: RolesBuilder = new RolesBuilder();
-
 roles
   // AUTHOR ROLES
   .grant(AppRoles.AUTHOR)

@@ -19,10 +19,41 @@ import { User as UserEntity } from './entities/user.entity';
 @Controller('user')
 export class UserController {
   constructor(
-    private readonly userService: UserService, 
+    private readonly userService: UserService,
     @InjectRolesBuilder()
-    private readonly rolesBuilder: RolesBuilder) {}
-
+    private readonly rolesBuilder: RolesBuilder,
+  ) {}
+  //users
+  @Get(
+    'full'
+  ) /* mostrar todos los usuarios registrados la db para admin no validado */
+  @Render('user/admin/listUser')
+  async getMany() {
+    const data = await this.userService.getMany();
+    return {
+      data,
+    };
+  } 
+  @Get('ver/:id') /* vista para ver todos lo datos*/
+  @Render('user/admin/verUser')
+  getVerOne(@Param('id', ParseIntPipe) id: number) {
+    return this.userService.getOne(id);
+  }
+  /* formulario de registro */
+  @Get('register') 
+  @Render('user/register')
+  async registerPage() {
+    return;
+  }
+  //crear user
+  @Post('register') /*enviar infor para crear, no tiene validacciones */
+  async createOne(@Body() dto: UserRegistrationDto, @Response() res) {
+    const data = await this.userService.createOne({
+      ...dto,
+      roles: [AppResource.USER],
+    });
+    if (data) return res.redirect('/auth/login');
+  }
   //Admin
   @Auth()
   @Get(':id') /* mostrar formulario de editar */
@@ -63,7 +94,6 @@ export class UserController {
     @Response() res,
   ) {
     let data;
-
     if (this.rolesBuilder.can(user.roles).updateAny(AppResource.USER).granted) {
       // esto es un admin
       data = await this.userService.editOne(id, dto);
@@ -89,7 +119,6 @@ export class UserController {
     @Response() res,
   ) {
     let data;
-
     if (this.rolesBuilder.can(user.roles).updateAny(AppResource.USER).granted) {
       // esto es un admin
       data = await this.userService.deleteOne(id);
@@ -98,35 +127,5 @@ export class UserController {
       data = await this.userService.deleteOne(id, user);
     }
     if (data) return res.redirect('/user/full');
-  }
-  //users
-  @Get('register') /* formulario de registro */
-  @Render('user/register')
-  async registerPage() {
-    return;
-  }
-  @Get(
-    'full'
-  ) /* mostrar todos los usuarios registrados la db para admin no validado */
-  @Render('user/admin/listUser')
-  async getMany() {
-    const data = await this.userService.getMany();
-    return {
-      data,
-    };
-  } 
-  @Get('ver/:id') /* vista para ver todos lo datos*/
-  @Render('user/admin/verUser')
-  getVerOne(@Param('id', ParseIntPipe) id: number) {
-    return this.userService.getOne(id);
-  }
-  //crear user
-  @Post('register') /*enviar infor para crear, no tiene validacciones */
-  async createOne(@Body() dto: UserRegistrationDto, @Response() res) {
-    const data = await this.userService.createOne({
-      ...dto,
-      roles: [AppResource.USER],
-    });
-    if (data) return res.redirect('/auth/login');
   }
 }
