@@ -20,9 +20,11 @@
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand ",
     "test:e2e": "jest --config ./test/jest-e2e.json",
     "//" :"Estos son los comandos de Typeorm para el uso de las migraciones",
-    "db:migration:generate": "npx typeorm migration:generate -n",
+    "/*/": "levantar migration",
+    "db:migration:generate": "npx typeorm migration:generate -n", 
     "db:migration:run": "npx typeorm migration:run",
-    "db:migration:revert": "npx typeorm migration:revert"
+    "///":"bajar/sacar migration" ,
+    "db:migration:revert": "npx typeorm migration:revert" 
   },
   "dependencies": {
     "@hapi/joi": "^17.1.1",
