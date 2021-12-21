@@ -5,7 +5,7 @@ import {
   DEFAULT_USER_PASSWORD,
   DEFAULT_USER_NAME,
   DEFAULT_USER_LASTNAME,
-} from './constants';
+} from '../config/constants';
 import { User } from '../user/entities/user.entity';
 export const setDefaultUser = async (config: ConfigService) => {
   const userRepository = getRepository<User>(User);
@@ -28,3 +28,5 @@ export const setDefaultUser = async (config: ConfigService) => {
     return await userRepository.save(adminUser);
   }
 };
+
+export default setDefaultUser;

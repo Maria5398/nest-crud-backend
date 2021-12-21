@@ -1,0 +1,23 @@
+{
+  "type": "mysql",
+  "host": "localhost",
+  "port": 3306,
+  "username": "root",
+  "password": "mysql",
+  "database": "test-nest",
+  "entities": [
+    "C:\\Users\\baezm\\OneDrive\\Escritorio\\nest-uplon-practica\\dist\\**\\**\\*entity{.ts,.js}"
+  ],
+  "autoLoadEntities": true,
+  "migrationsRun": true,
+  "migrations": [
+    "C:\\Users\\baezm\\OneDrive\\Escritorio\\nest-uplon-practica\\dist\\migration\\**\\*{.ts,.js}"
+  ],
+  "migrationsTableName": "migrations_typeorm",
+  "cli": {
+    "migrationsDir": "src/migration"
+  },
+  "synchronize": false,
+  "logging": true,
+  "logger": "file"
+}

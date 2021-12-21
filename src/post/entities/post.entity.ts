@@ -34,10 +34,12 @@ export class Post{
   @Column({ type: 'bool', default: true })
   status: boolean;
 
-  @CreateDateColumn({ type: 'timestamp' })
-  createdAt: Date;
-
   @ManyToOne(() => User, user => user.posts, { eager: true })
   @JoinColumn({ name: 'author' })
   author: User;
+
+  @CreateDateColumn({ type: 'timestamp' })
+  createdAt: Date;
+
+
 }
